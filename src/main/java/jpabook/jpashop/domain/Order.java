@@ -51,27 +51,27 @@ public class Order {
     }
 
     public static Order createOrder(Member member, Delivery delivery,OrderItem...orderItems){
-        Order order = new Order();
-        order.setMember(member);
-        order.setDelivery(delivery);
+       Order order = new Order();
+       order.setMember(member);
+       order.setDelivery(delivery);
         for (OrderItem orderItem : orderItems) {
             order.addOrderItem(orderItem);
         }
-        order.setStatus(OrderStatus.ORDER);
         order.setOrderData(LocalDateTime.now());
+        order.setStatus(OrderStatus.ORDER);
         return order;
     }
 
     public void cancel()
     {
-        if(delivery.getStatus()==DeliveryStatus.COMP)
-        {
-            throw new IllegalStateException("이미 배송완료된 상품은 취소가 불가능 합니다.");
-        }
-        this.setStatus(OrderStatus.CANCEL);
+       if(delivery.getStatus()==DeliveryStatus.COMP)
+       {
+           throw new IllegalStateException("이미 배송완료 되서 취소안됨");
+       }
         for (OrderItem orderItem : orderItems) {
             orderItem.cancel();
         }
+
     }
 
     public int getTotalPrice()

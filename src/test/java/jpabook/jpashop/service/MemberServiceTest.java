@@ -11,9 +11,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import static org.junit.jupiter.api.Assertions.*;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
 @Transactional
+@SpringBootTest
+@RunWith(SpringRunner.class)
 class MemberServiceTest {
     @Autowired
     MemberService memberService;
@@ -23,23 +23,23 @@ class MemberServiceTest {
     @Test
     public void Join()throws Exception
     {
-        Member member = new Member();
-        member.setName("kim");
+       Member member = new Member();
+       member.setName("kim");
 
-        Long saveId = memberService.join(member);
+       Long saveId = memberService.join(member);
 
-        assertEquals(member,memberRepository.findOne(saveId));
+       Assertions.assertEquals(member,memberRepository.findOne(saveId));
     }
 
     @Test()
     public void duplicateException() throws Exception
     {
         Member member1 = new Member();
-        member1.setName("kim");
         Member member2 = new Member();
+        member1.setName("kim");
         member2.setName("kim");
-
         memberService.join(member1);
-        assertThrows(IllegalStateException.class,()->memberService.join(member2));
+
+        Assertions.assertThrows(IllegalStateException.class, ()->memberService.join(member2));
     }
 }
